@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+
+  jenkins-agent:
+    image: java
+    container_name: jenkins-agent-wp-plugin
+    restart: always
+    working_dir: '/root/'
+    volumes:
+      - /opt/bitnami/wp-content/plugins/peerboard/:/root/
+    command:
+      - ./jenkins-agent-wp-plugin.sh
