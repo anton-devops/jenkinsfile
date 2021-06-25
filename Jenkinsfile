@@ -1,21 +1,18 @@
 pipeline {
-    agent {
-        label 'wp-plugin-agent'
+
+    agent none
+
+    environment {
+        // env vars for both backend and frontend
+        ENV="DEV"
+        TEST_ID=credentials('test_secret')
     }
 
     stages {
-        stage('copy from git repo to peerboard dir'){
-            steps{
-                sh 'sudo mkdir -p /opt/bitnami/wp-content/plugins/peerboard'
-                sh 'sudo rsync -av --delete ${PWD}/ /opt/bitnami/wp-content/plugins/peerboard/'
-                sh 'rm -rf /opt/bitnami/wp-content/plugins/peerboard/.git*'
+        stage('Forum Backend Build') {
+            agent { label 'master' }
+            steps {
+                sh 'echo $TEST_ID'
             }
         }
-        stage('print list of new files'){
-            steps{
-                sh 'ls -la /opt/bitnami/wp-content/plugins/peerboard/'
-            }
-        }        
-    }
 }
-
