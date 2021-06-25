@@ -15,4 +15,5 @@ pipeline {
                 sh 'echo $TEST_ID'
             }
         }
+    }
 }
